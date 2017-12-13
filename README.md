@@ -1,5 +1,5 @@
 ## 移动端常见问题总结
-##### 1.Safari中设置transform之后z-index不生效
+###  1.Safari中设置transform之后z-index不生效
 在Safari浏览器下，此Safari浏览器包括iOS的Safari，iPhone上的微信浏览器，以及Mac OS X系统的Safari浏览器，当我们使用3D transform变换的时候，如果祖先元素没有overflow:hidden/scroll/auto等限制，则会直接忽略自身和其他元素的z-index层叠顺序设置，而直接使用真实世界的3D视角进行渲染。
 
 **方法1：**
