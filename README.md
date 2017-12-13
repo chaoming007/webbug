@@ -50,3 +50,89 @@
     </html>
 
 
+5.移动端如何定义字体font-family
+
+中文字体使用系统默认即可，英文用Helvetica
+
+/* 移动端定义字体的代码 */
+body{font-family:Helvetica;}
+
+6.当用户手指放在移动设备在屏幕上滑动会触发的touch事件
+
+以下支持webkit
+touchstart——当手指触碰屏幕时候发生。不管当前有多少只手指
+touchmove——当手指在屏幕上滑动时连续触发。通常我们再滑屏页面，会调用event的- - - preventDefault()可以阻止默认情况的发生：阻止页面滚动
+touchend——当手指离开屏幕时触发
+touchcancel——系统停止跟踪触摸时候会触发。例如在触摸过程中突然页面alert()一个提示框，此时会触发该事件，这个事件比较少用
+TouchEvent
+touches：屏幕上所有手指的信息
+targetTouches：手指在目标区域的手指信息
+changedTouches：最近一次触发该事件的手指信息
+touchend时，touches与targetTouches信息会被删除，changedTouches保存的最后一次的信息，最好用于计算手指信息
+
+6.ios系统中元素被触摸时产生的半透明灰色遮罩怎么去掉
+
+ios用户点击一个链接，会出现一个半透明灰色遮罩, 如果想要禁用，可设置-webkit-tap-highlight-color的alpha值为0，也就是属性值的最后一位设置为0就可以去除半透明灰色遮罩
+
+    a,button,input,textarea{-webkit-tap-highlight-color: rgba(0,0,0,0;)}
+	
+7.webkit表单元素的默认外观怎么重置
+
+    .css{-webkit-appearance:none;}
+
+8.webkit表单输入框placeholder的颜色值能改变么
+
+    input::-webkit-input-placeholder{color:#AAAAAA;}
+    input:focus::-webkit-input-placeholder{color:#EEEEEE;}
+	
+9.禁用 radio 和 checkbox 默认样式
+
+::-ms-check 适用于表单复选框或单选按钮默认图标的修改，同样有多个属性值，设置它隐藏 (display:none) 并使用背景图片来修饰可得到我们想要的效果。
+
+    input[type=radio]::-ms-check,input[type=checkbox]::-ms-check{
+    display: none;
+    }
+10.禁止ios 长按时不触发系统的菜单，禁止ios&android长按时下载图片
+
+    .css{-webkit-touch-callout: none}
+11.禁止ios和android用户选中文字
+
+    .css{-webkit-user-select:none}
+
+12.屏幕旋转的事件和样式
+
+    window.onorientationchange = function(){
+        switch(window.orientation){
+            case -90:
+            case 90:
+            alert("横屏:" + window.orientation);
+            case 0:
+            case 180:
+            alert("竖屏:" + window.orientation);
+            break;
+        }
+    }
+	
+    //竖屏时使用的样式
+    @media all and (orientation:portrait) {
+    .css{}
+    }
+    
+    //横屏时使用的样式
+    @media all and (orientation:landscape) {
+    .css{}
+    }
+	
+12.audio元素和video元素在ios和andriod中无法自动播放
+
+    $('html').one('touchstart',function(){
+        audio.play()
+    })
+	
+13.ios使用-webkit-text-size-adjust禁止调整字体大小
+
+    body{-webkit-text-size-adjust: 100%!important;}
+	
+14.解决滑动卡顿的样式
+
+     -webkit-overflow-scrolling: touch;
