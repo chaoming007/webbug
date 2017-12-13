@@ -16,3 +16,37 @@
     /* 此处设置 */
     transform: translateZ(100px);
 }
+
+###  2.移动端开发常用设置
+1.H5页面窗口自动调整到设备宽度，并禁止用户缩放页面
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+2.忽略将页面中的数字识别为电话号码
+
+    <meta name="format-detection" content="telephone=no" />
+3.忽略Android平台中对邮箱地址的识别
+
+    <meta name="format-detection" content="email=no" />
+4.viewport模板——通用
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <title>标题</title>
+    <link rel="stylesheet" href="index.css">
+    </head>
+    
+    <body>
+    这里开始内容
+    </body>
+    
+    </html>
+
+
