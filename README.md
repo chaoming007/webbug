@@ -15,7 +15,69 @@
     z-index: 99;
     /* 此处设置 */
     transform: translateZ(100px);
+    
 }
+
+###  2.禁止蒙层底部页面跟随滚动
+方案一
+打开蒙层时，给 body 添加样式：
+
+    overflow: hidden;
+    height: 100%;
+在某些机型下，你可能还需要给根节点添加样式：
+
+    overflow: hidden;
+
+优点： 简单方便，只需添加 css 样式，没有复杂的逻辑。
+
+缺点： 兼容性不好，适用于 pc，移动端就尴尬了。 部分安卓机型以及 safari 中，无法无法阻止底部页面滚动。
+
+方案二
+就是利用移动端的 touch 事件，来阻止默认行为（这里可以理解为页面滚动就是默认行为）。
+
+    // node为蒙层容器dom节点
+    
+    node.addEventListener('touchstart', e => {
+    
+      e.preventDefault()
+    
+    }, false)
+简单粗暴，滚动时底部页面也无法动弹了。假如你的蒙层内容不会有滚动条，那么上述方法 prefect。
+
+方案三
+来讲讲我的思路，既然我们要阻止页面滚动，那么何不将其固定在视窗（即 position: fixed），这样它就无法滚动了，当蒙层关闭时再释放。 当然还有一些细节要考虑，将页面固定视窗后，内容会回头最顶端，这里我们需要记录一下，同步 top 值。
+
+    let bodyEl = document.body
+    
+    let top = 0
+    
+    
+    function stopBodyScroll (isFixed) {
+    
+      if (isFixed) {
+    
+        top = window.scrollY
+    
+    
+        bodyEl.style.position = 'fixed'
+    
+        bodyEl.style.top = -top + 'px'
+    
+      } else {
+    
+        bodyEl.style.position = ''
+    
+        bodyEl.style.top = ''
+    
+    
+        window.scrollTo(0, top) // 回到原先的top
+    
+      }
+    
+    }
+
+
+
 
 ###  2.移动端开发常用设置
 1.H5页面窗口自动调整到设备宽度，并禁止用户缩放页面
@@ -136,3 +198,34 @@ ios用户点击一个链接，会出现一个半透明灰色遮罩, 如果想要
 14.解决滑动卡顿的样式
 
      -webkit-overflow-scrolling: touch;
+
+
+15.页面顶部阴影
+
+下面这个简单的 CSS3 代码片段可以给网页加上漂亮的顶部阴影效果：
+
+    body:before {
+    
+              content: "";
+    
+              position: fixed;
+    
+              top: -10px;
+    
+              left: 0;
+    
+              width: 100%;
+    
+              height: 10px;
+    
+    
+              -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+    
+              -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+    
+              box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+    
+    
+              z-index: 100;
+    
+    }
